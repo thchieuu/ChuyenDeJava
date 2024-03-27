@@ -1,4 +1,4 @@
-# ChuyenDeJava
+# ChuyenDeWeb
 1.Giới thiệu đề tài.
   -Đồ án này là một trang web tin tức về thể thao được phát triển để cung cấp thông tin và tin tức mới nhất về các sự kiện, trận đấu, cầu thủ, và các tin tức nổi bật khác trong lĩnh vực thể thao. 
 
