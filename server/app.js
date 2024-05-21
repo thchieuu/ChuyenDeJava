@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/userRoutes');
+const newsRoutes = require('./src/routes/newsRoutes');
+
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use(express.json());
 // Sử dụng route
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/news', newsRoutes);
+
 
 // Khởi động server
 const port = process.env.PORT || 7000;
