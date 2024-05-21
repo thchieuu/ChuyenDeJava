@@ -74,3 +74,25 @@ exports.createNews = async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 };
+
+exports.searchNews = async (req, res) => {
+  try {
+    const searchTerm = req.query.q; // Lấy từ khóa tìm kiếm từ query string
+
+    // Xây dựng query tìm kiếm
+    const query = {
+      title: { $regex: searchTerm, $options: 'i' } // Tìm kiếm không phân biệt hoa thường
+    };
+
+    const newsList = await News.find(query);
+
+    if (newsList.length === 0) {
+      return res.status(404).json({ message: 'Không tìm thấy kết quả' });
+    }
+
+    res.json(newsList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+};
