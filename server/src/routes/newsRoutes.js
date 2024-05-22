@@ -10,6 +10,7 @@ router.delete('/:id', authMiddleware.requireAuth, authMiddleware.requireRole('ad
 
 // Route lấy danh sách và chi tiết bài viết không yêu cầu quyền
 router.get('/', newsController.getNews);
+router.get('/search', newsController.searchNews);
 router.get('/:id', newsController.getNewsById);
 
 
