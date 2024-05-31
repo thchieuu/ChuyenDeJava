@@ -1,0 +1,91 @@
+.bodyStyle {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.containerStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgb(111, 136, 108), #eeeede);
+}
+
+.title{
+  font-family: "Poppins";
+  font-size: 6rem;
+  position: relative;
+  margin-top: -15rem;
+  background: linear-gradient(45deg, #cec5c5, #4e4b4b, #cfc2c2, #ffffff, rgb(202, 183, 183)  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientAnimation 5s ease infinite;
+}
+
+.paragraph1 {
+  font-family: "Open Sans", sans-serif; 
+  font-size: 1.7rem;
+  line-height: 1.5;
+  color: rgb(80, 78, 78); 
+
+}
+
+.scroll-button{
+  background: none; 
+  border: none; 
+  position: fixed;
+  top: 90%; 
+  left: 50%; 
+  transform: translate(-50%, 50%); 
+  z-index: 999; 
+}
+
+.scroll-button img {
+  width: 30px; 
+  height: auto;
+  filter: hue-rotate(100deg);
+  position: relative;
+  animation: moveUpDown 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes moveUpDown {
+  0% {
+      top: 0; 
+  }
+  100% {
+      top: 10px; 
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media(max-width: 768px) {
+  .containerStyle {
+    height: 100vh;
+  }
+
+  .title {
+    font-size: 3rem;
+    margin-top: -5rem;
+  }
+
+  .paragraph1 {
+    font-size: 1.2rem;
+  }
+
+  .scroll-button {
+    display: block;
+  }
+}
