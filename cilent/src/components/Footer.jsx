@@ -5,7 +5,7 @@ function Footer() {
     <footer className="bg-dark">
       <Container>
         <p className="text-light text-center m-0 py-3">
-          Irina-Elena Tarita © 2024. All rights reserved.
+          Hahahahahahahahahaha
         </p>
       </Container>
     </footer>

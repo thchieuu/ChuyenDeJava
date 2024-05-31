@@ -1,4 +1,3 @@
-// pages/NewsDetails.js
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
@@ -53,28 +52,31 @@ function NewsDetails() {
       <Layout>
         {isAlertDisplayed && (
             <Alert variant="success" id={styles.alert}>
-              Great! You can see the news by accessing the Favorites section.
+              Tin tức đã được lưu vào mục ƯA THÍCH
             </Alert>
         )}
         <Container className="NewsDetails my-5">
           <Row className="justify-content-center">
             <Col md={10}>
               <h1 className="pt-3 mb-4">{title}</h1>
-              <p className="text-muted mb-3">{author}</p>
+              <p className="text-muted mb-3">{author} </p>
               <p className="text-muted mb-5">{formattedDate}</p>
-              {imgLinks && imgLinks.length > 0 ? (
+              {imgLinks && imgLinks.length > 0 && (
                   <div className="mb-5">
-                    {imgLinks.map((imgLink) => (
-                        <img key={imgLink._id} src={imgLink.url} alt={imgLink.title} className="img-fluid mb-3" />
-                    ))}
+                    <img src={imgLinks[0].url} alt={imgLinks[0].title} className="img-fluid mb-3" />
                   </div>
-              ) : (
-                  <img src={defaultImageUrl} alt="default" className="img-fluid mb-3" />
               )}
               {mainText.map((paragraph, index) => (
-                  <p key={index} className="mb-3">{paragraph}</p>
+                  <React.Fragment key={index}>
+                    <p className="mb-3">{paragraph}</p>
+                    {index === 1 && imgLinks && imgLinks.length > 1 && (
+                        <div className="mb-5">
+                          <img src={imgLinks[1].url} alt={imgLinks[1].title} className="img-fluid mb-3" />
+                        </div>
+                    )}
+                  </React.Fragment>
               ))}
-              <Button onClick={handleAddToFavorites} className="mt-4">Add to favorites</Button>
+              <Button onClick={handleAddToFavorites} className="mt-4">Thêm vào mục ƯA THÍCH</Button>
             </Col>
           </Row>
         </Container>
