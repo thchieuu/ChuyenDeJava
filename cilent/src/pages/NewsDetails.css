@@ -5,6 +5,10 @@
 .NewsDetails img {
   width: 100%;
   height: auto;
+  max-height: 500px; /* Giới hạn chiều cao tối đa của hình ảnh */
+  object-fit: cover; /* Đảm bảo hình ảnh giữ nguyên tỉ lệ khung hình */
+  display: block;
+  margin: 20px 0; /* Khoảng cách giữa các hình ảnh và nội dung xung quanh */
 }
 
 .NewsDetails a {
@@ -25,4 +29,3 @@
 .NewsDetails figcaption {
   font-size: 0.875rem;
 }
-

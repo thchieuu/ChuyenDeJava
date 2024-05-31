@@ -1,4 +1,3 @@
-// pages/Favorites.js
 import React, { useContext } from "react";
 import Layout from "../components/Layout";
 import Container from "react-bootstrap/Container";
@@ -14,7 +13,7 @@ function Favorites() {
                 {state.news.length > 0 ? (
                     <NewsCardList newsList={state.news} showCloseButton={true} />
                 ) : (
-                    <p>You don't have any favorite news yet.</p>
+                    <p>Bạn chưa có tin tức ưa thích nào.</p>
                 )}
             </Container>
         </Layout>

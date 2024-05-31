@@ -1,15 +1,10 @@
-// components/NewsCardList.js
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import NewsCard from "./NewsCard";
 
-const defaultImageUrl = "../../tinthethao.png"; // URL hình ảnh mặc định
-
-function NewsCardList(props) {
-    const { newsList, showCloseButton } = props;
-
+function NewsCardList({ newsList, showCloseButton = false }) {
     return (
         <Container>
             <Row>
@@ -17,10 +12,10 @@ function NewsCardList(props) {
                     <Col xs={12} md={6} lg={4} className="mb-4" key={news._id}>
                         <NewsCard
                             newsId={news._id}
-                            imgSrc={news.imgLinks.length > 0 ? news.imgLinks[0].url : defaultImageUrl}
+                            imgSrc={news.imgLinks && news.imgLinks.length > 0 ? news.imgLinks[0].url : null}
                             title={news.title}
                             description={news.description}
-                            hasCloseButton={showCloseButton} // Sử dụng prop này để kiểm soát nút đóng
+                            hasCloseButton={showCloseButton} // Pass the prop to NewsCard
                         />
                     </Col>
                 ))}
