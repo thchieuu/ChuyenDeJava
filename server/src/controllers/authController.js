@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Sai tên đăng nhập hoặc mật khẩu' });
     }
 
-    const token = jwt.sign({ userId: user._id, role: user.role }, '27072002', { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id, role: user.role }, '27072002', { expiresIn: '10s' });
     res.json({ token });
   } catch (error) {
     console.error(error);
