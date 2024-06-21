@@ -3,6 +3,9 @@ const router = express.Router();
 const commentController = require('../controllers/commentController');
 const authMiddleware = require('../middlewares/auth');
 
+// Lấy comment
+router.get('/', commentController.getComments);
+
 // Lấy danh sách comment cho bài viết
 router.get('/:newsId', commentController.getCommentsByNewsId);
 
