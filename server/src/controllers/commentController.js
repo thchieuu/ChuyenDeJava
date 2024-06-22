@@ -27,19 +27,34 @@ exports.getCommentsByNewsId = async (req, res) => {
   }
 };
 
+exports.getCommentsByNewsId = async (req, res) => {
+    try {
+        const newsId = req.params.newsId;
+        const comments = await Comment.find({ news: newsId })
+            .populate('author', 'username') // Populate username
+            .sort({ createdAt: -1 })
+            .lean();
+        res.json(comments);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Lỗi server' });
+    }
+};
 exports.createComment = async (req, res) => {
-  try {
-    const { content, newsId } = req.body;
-    const author = req.user.userId; // Lấy ID người dùng từ token
+    try {
+        const { content, newsId } = req.body;
+        const author = req.user.userId; // Lấy ID người dùng từ token
 
-    const newComment = new Comment({ content, author, news: newsId });
-    await newComment.save();
+        const newComment = new Comment({ content, author, news: newsId });
+        await newComment.save();
 
-    res.status(201).json(newComment);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Lỗi server' });
-  }
+        const populatedComment = await newComment.populate('author', 'username').execPopulate(); // Populate username
+
+        res.status(201).json(populatedComment);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Lỗi server' });
+    }
 };
 
 exports.toggleLike = async (req, res) => {

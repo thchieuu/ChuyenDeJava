@@ -6,6 +6,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import Modal from "react-bootstrap/Modal";
+import { Form } from "react-bootstrap";
 import styles from "./NewsDetails.module.css";
 import "./NewsDetails.css";
 import { FavoritesContext } from "../store/favorites/context";
@@ -18,6 +20,12 @@ function NewsDetails() {
 
   const [news, setNews] = useState(null);
   const [isAlertDisplayed, setIsAlertDisplayed] = useState(false);
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+
+  const openCommentModal = () => setShowCommentModal(true);
+  const closeCommentModal = () => setShowCommentModal(false);
 
   useEffect(() => {
     const fetchNewsData = async () => {
@@ -33,13 +41,51 @@ function NewsDetails() {
       }
     };
 
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(`http://localhost:7000/api/comments/${newsId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch comments");
+        }
+        const data = await response.json();
+        setComments(data);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
     fetchNewsData();
+    fetchComments();
   }, [newsId]);
 
   const handleAddToFavorites = () => {
     dispatch({ type: "ADD_TO_FAVORITES", payload: news });
     setIsAlertDisplayed(true);
     setTimeout(() => setIsAlertDisplayed(false), 3000);
+  };
+
+  const handleSubmitComment = async () => {
+    try {
+      const response = await fetch("http://localhost:7000/api/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Đảm bảo bạn đã lưu token sau khi đăng nhập
+        },
+        body: JSON.stringify({ content: comment, newsId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit comment");
+      }
+
+      const newComment = await response.json();
+      setComments((prevComments) => [...prevComments, newComment]);
+      setComment("");
+      closeCommentModal();
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    }
   };
 
   if (!news) {
@@ -76,10 +122,51 @@ function NewsDetails() {
                     )}
                   </React.Fragment>
               ))}
+              <Button onClick={openCommentModal} className="mt-4">Bình luận</Button>
               <Button onClick={handleAddToFavorites} className="mt-4">Thêm vào mục ƯA THÍCH</Button>
+              <div className="comments-section mt-5">
+                <h3>Bình luận</h3>
+                {comments.length > 0 ? (
+                    comments.map((comment, index) => (
+                        <div key={index} className="comment mb-3">
+                          <small className="text-muted">{comment.author.username} - {new Date(comment.createdAt).toLocaleString()}</small>
+                          <p>{comment.content}</p>
+
+                        </div>
+                    ))
+                ) : (
+                    <p>Chưa có bình luận nào.</p>
+                )}
+              </div>
             </Col>
           </Row>
         </Container>
+        <Modal show={showCommentModal} onHide={closeCommentModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Bình luận của bạn</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="commentForm.ControlTextarea">
+                <Form.Label>Nhập bình luận của bạn</Form.Label>
+                <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeCommentModal}>
+              Đóng
+            </Button>
+            <Button variant="primary" onClick={handleSubmitComment}>
+              Gửi bình luận
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Layout>
   );
 }

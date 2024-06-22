@@ -14,9 +14,10 @@ const Login = () => {
         try {
             const res = await axios.post('http://localhost:7000/api/auth/login', { username, password });
             if (res.status === 200) {
-                localStorage.setItem('token', res.data.token); // Lưu token vào local storage
 
-                navigate('/'); // Chuyển hướng về trang chủ sau khi đăng nhập thành công
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('username', username); // Lưu username vào localStorage
+                navigate('/');
             }
         } catch (err) {
             if (err.response && err.response.data && err.response.data.message) {
@@ -76,7 +77,7 @@ const styles = {
         justifyContent: 'center',
         fontFamily: 'sans-serif',
         lineHeight: '1.5',
-        minHeight: '100vh',
+        minHeight: '60vh',
         background: '#f3f3f3',
         flexDirection: 'column',
         margin: 0,
