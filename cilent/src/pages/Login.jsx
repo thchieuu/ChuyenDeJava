@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Layout from "../components/Layout";
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate(); // useNavigate hook
+    const navigate = useNavigate();
 
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post('http://localhost:7000/api/auth/login', { username, password });
             if (res.status === 200) {
-                alert('Đăng nhập thành công');
-                localStorage.setItem('token', res.data.token); // Store the token
-                navigate('/'); // Redirect to the homepage after successful login
+                localStorage.setItem('token', res.data.token); // Lưu token vào local storage
+
+                navigate('/'); // Chuyển hướng về trang chủ sau khi đăng nhập thành công
             }
         } catch (err) {
             if (err.response && err.response.data && err.response.data.message) {
@@ -27,42 +28,44 @@ const Login = () => {
     };
 
     return (
-        <div style={styles.body}>
-            <div style={styles.main}>
-                <h3>Login</h3>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <form onSubmit={onSubmit}>
-                    <label style={styles.label} htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Enter your Username"
-                        required
-                        style={styles.input}
-                    />
+        <Layout>
+            <div style={styles.body}>
+                <div style={styles.main}>
+                    <h3>Login</h3>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <form onSubmit={onSubmit}>
+                        <label style={styles.label} htmlFor="username">Username:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Enter your Username"
+                            required
+                            style={styles.input}
+                        />
 
-                    <label style={styles.label} htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter your Password"
-                        required
-                        style={styles.input}
-                    />
+                        <label style={styles.label} htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your Password"
+                            required
+                            style={styles.input}
+                        />
 
-                    <div style={styles.wrap}>
-                        <button type="submit" style={styles.button}>Submit</button>
-                    </div>
-                </form>
-                <p>Not registered? <a href="/register" style={styles.link}>Create an account</a></p>
+                        <div style={styles.wrap}>
+                            <button type="submit" style={styles.button}>Submit</button>
+                        </div>
+                    </form>
+                    <p>Not registered? <a href="/register" style={styles.link}>Create an account</a></p>
+                </div>
             </div>
-        </div>
+        </Layout>
     );
 };
 
