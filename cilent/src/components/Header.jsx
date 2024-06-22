@@ -1,29 +1,13 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 import Container from "react-bootstrap/Container";
 
 function Header() {
   const [isDisplayed, setIsDisplayed] = useState(false);
-  const [username, setUsername] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
 
   function handleMenuClick() {
     setIsDisplayed((prevIsDisplayed) => !prevIsDisplayed);
-  }
-
-  function handleLogout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    setUsername(null);
-    navigate('/login');
   }
 
   let dropdownMenuClasses = "custom-dropdown-menu";
@@ -61,40 +45,15 @@ function Header() {
                 onClick={handleMenuClick}
                 className="material-icons menu-icon text-light"
             >
-              menu
+              {" "}
+              menu{" "}
             </span>
-
-              {!username ? (
-                  <div className="greeting-logout">
-                    <Link
-                        to="/login"
-                        className="p-3 text-uppercase text-light"
-                        style={{ ...linkStyle, ...linkHoverStyle }}
-                    >
-                      Đăng nhập
-                    </Link>
-                    <Link
-                        to="/register"
-                        className="p-3 text-uppercase text-light"
-                        style={{ ...linkStyle, ...linkHoverStyle }}
-                    >
-                      Đăng ký
-                    </Link>
-                  </div>
-              ) : (
-                  <div className="greeting-logout">
-                    <span className="greeting">Chào: {username}</span>
-                    <button className="logout" onClick={handleLogout}>
-                      Đăng xuất
-                    </button>
-                  </div>
-              )}
               <ul className={dropdownMenuClasses}>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
                       to="/category/travel"
                       className="p-3 text-uppercase text-light"
-                      style={{ ...linkStyle, ...linkHoverStyle }}
+                      style={{...linkStyle, ...linkHoverStyle}}
                   >
                     Tin Mới Nhất
                   </Link>
@@ -103,7 +62,7 @@ function Header() {
                   <Link
                       to="/category/food"
                       className="p-3 text-uppercase text-light"
-                      style={{ ...linkStyle, ...linkHoverStyle }}
+                      style={{...linkStyle, ...linkHoverStyle}}
                   >
                     Sự Kiện
                   </Link>
@@ -112,25 +71,43 @@ function Header() {
                   <Link
                       to="/category/fashion"
                       className="p-3 text-uppercase text-light"
-                      style={{ ...linkStyle, ...linkHoverStyle }}
+                      style={{...linkStyle, ...linkHoverStyle}}
                   >
                     Lịch Thi Đấu
                   </Link>
                 </li>
+               {/* <li className={isDisplayed ? "container" : null}>
+                  <Link
+                      to="/category/science"
+                      className="p-3 text-uppercase text-light"
+                      style={{...linkStyle, ...linkHoverStyle}}
+                  >
+                    Science
+                  </Link>
+                </li>*/}
                 <li className={isDisplayed ? "container" : null}>
                   <Link
                       to="/category/music"
                       className="p-3 text-uppercase text-light"
-                      style={{ ...linkStyle, ...linkHoverStyle }}
+                      style={{...linkStyle, ...linkHoverStyle}}
                   >
                     Kết quả
                   </Link>
                 </li>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
+                      to="/auth"
+                      className="p-3 text-uppercase text-light"
+                      style={{...linkStyle, ...linkHoverStyle}}
+                  >
+                    Đăng nhập
+                  </Link>
+                </li>
+                <li className={isDisplayed ? "container" : null}>
+                  <Link
                       to="/favorites"
                       className="p-3 text-uppercase text-light"
-                      style={{ ...linkStyle, ...linkHoverStyle }}
+                      style={{...linkStyle, ...linkHoverStyle}}
                   >
                     Ưa Thích
                   </Link>
