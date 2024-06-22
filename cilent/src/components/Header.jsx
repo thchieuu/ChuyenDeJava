@@ -96,12 +96,23 @@ function Header() {
                 </li>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
-                      to="/auth"
+                      to="/login"
                       className="p-3 text-uppercase text-light"
                       style={{...linkStyle, ...linkHoverStyle}}
                   >
                     Đăng nhập
                   </Link>
+
+                </li>
+                <li className={isDisplayed ? "container" : null}>
+                  <Link
+                      to="/register"
+                      className="p-3 text-uppercase text-light"
+                      style={{...linkStyle, ...linkHoverStyle}}
+                  >
+                    Đăng ký
+                  </Link>
+
                 </li>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
