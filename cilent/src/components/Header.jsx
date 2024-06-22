@@ -35,25 +35,18 @@ function Header() {
         <nav className="nav">
           <Container className="d-flex justify-content-between align-items-center">
             <Link to="/" className="p-3">
-              <img
-                  src="../../nlu.png"
-                  alt="website logo"
-              />
+              <img src="../../nlu.png" alt="website logo" />
             </Link>
             <div className="menu-icon-container">
-            <span
-                onClick={handleMenuClick}
-                className="material-icons menu-icon text-light"
-            >
-              {" "}
-              menu{" "}
+            <span onClick={handleMenuClick} className="material-icons menu-icon text-light">
+              menu
             </span>
               <ul className={dropdownMenuClasses}>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
                       to="/category/travel"
                       className="p-3 text-uppercase text-light"
-                      style={{...linkStyle, ...linkHoverStyle}}
+                      style={{ ...linkStyle, ...linkHoverStyle }}
                   >
                     Tin Mới Nhất
                   </Link>
@@ -62,7 +55,7 @@ function Header() {
                   <Link
                       to="/category/food"
                       className="p-3 text-uppercase text-light"
-                      style={{...linkStyle, ...linkHoverStyle}}
+                      style={{ ...linkStyle, ...linkHoverStyle }}
                   >
                     Sự Kiện
                   </Link>
@@ -71,25 +64,25 @@ function Header() {
                   <Link
                       to="/category/fashion"
                       className="p-3 text-uppercase text-light"
-                      style={{...linkStyle, ...linkHoverStyle}}
+                      style={{ ...linkStyle, ...linkHoverStyle }}
                   >
                     Lịch Thi Đấu
                   </Link>
                 </li>
-               {/* <li className={isDisplayed ? "container" : null}>
+                <li className={isDisplayed ? "container" : null}>
                   <Link
-                      to="/category/science"
+                      to="/standings"
                       className="p-3 text-uppercase text-light"
-                      style={{...linkStyle, ...linkHoverStyle}}
+                      style={{ ...linkStyle, ...linkHoverStyle }}
                   >
-                    Science
+                    Bảng xếp hạng
                   </Link>
-                </li>*/}
+                </li>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
                       to="/category/music"
                       className="p-3 text-uppercase text-light"
-                      style={{...linkStyle, ...linkHoverStyle}}
+                      style={{ ...linkStyle, ...linkHoverStyle }}
                   >
                     Kết quả
                   </Link>
@@ -98,7 +91,7 @@ function Header() {
                   <Link
                       to="/auth"
                       className="p-3 text-uppercase text-light"
-                      style={{...linkStyle, ...linkHoverStyle}}
+                      style={{ ...linkStyle, ...linkHoverStyle }}
                   >
                     Đăng nhập
                   </Link>
@@ -107,7 +100,7 @@ function Header() {
                   <Link
                       to="/favorites"
                       className="p-3 text-uppercase text-light"
-                      style={{...linkStyle, ...linkHoverStyle}}
+                      style={{ ...linkStyle, ...linkHoverStyle }}
                   >
                     Ưa Thích
                   </Link>

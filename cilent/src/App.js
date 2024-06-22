@@ -1,11 +1,12 @@
-import {useReducer} from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React, { useReducer } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Page404 from "./pages/Page404";
 import Home from "./pages/Home";
 import SimpleHomePage from "./pages/SimpleHomePage";
 import Favorites from "./pages/Favorites";
 import NewsCategory from "./pages/NewsCategory";
 import NewsDetails from "./pages/NewsDetails";
+import LeagueStandings from "./pages/LeagueStandings"; // Import LeagueStandings
 import { initialState, favoritesReducer } from './store/favorites/reducer';
 import { FavoritesContext } from './store/favorites/context';
 import { useLocalStorage } from "./utils/hooks/useLocalStorage";
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
     path: "/simple-home",
     element: <SimpleHomePage />,
   },
+  {
+    path: "/standings", // Add the route for standings
+    element: <LeagueStandings />,
+  },
 ]);
 
 function App() {
@@ -43,11 +48,11 @@ function App() {
   };
 
   return (
-    <FavoritesContext.Provider value={favoritesContextValue}>
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
-    </FavoritesContext.Provider>
+      <FavoritesContext.Provider value={favoritesContextValue}>
+        <div className="App">
+          <RouterProvider router={router} />
+        </div>
+      </FavoritesContext.Provider>
   );
 }
 
