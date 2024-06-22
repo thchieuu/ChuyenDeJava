@@ -1,10 +1,25 @@
 const Comment = require('../models/comment');
 
+exports.getComments = async (req, res) => {
+  try {
+    const comments = await Comment.find()
+      .populate('author', 'username')
+      .populate('news', 'title')
+      .sort({ createdAt: -1 })
+      .lean();
+    res.json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+};
+
 exports.getCommentsByNewsId = async (req, res) => {
   try {
     const newsId = req.params.newsId;
     const comments = await Comment.find({ news: newsId })
       .populate('author', 'username')
+      .populate('news', 'title')
       .sort({ createdAt: -1 })
       .lean();
     res.json(comments);
