@@ -65,4 +65,33 @@
 
     background-color: rgb(41, 65, 41);
   }
+
+}
+.greeting-logout {
+  display: flex;
+  align-items: center;
+  margin-left: 359px;
+  margin-right: 20px;
+}
+
+.greeting {
+  color: #fff;
+  margin-right: 15px;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.logout {
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.logout:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

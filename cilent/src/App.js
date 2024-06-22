@@ -9,6 +9,8 @@ import NewsDetails from "./pages/NewsDetails";
 import { initialState, favoritesReducer } from './store/favorites/reducer';
 import { FavoritesContext } from './store/favorites/context';
 import { useLocalStorage } from "./utils/hooks/useLocalStorage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,15 @@ const router = createBrowserRouter([
     path: "/simple-home",
     element: <SimpleHomePage />,
   },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+
 ]);
 
 function App() {

@@ -22,7 +22,7 @@ function NewsDetails() {
   useEffect(() => {
     const fetchNewsData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/news/${newsId}`);
+        const response = await fetch(`http://localhost:7000/api/news/${newsId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch news data");
         }
