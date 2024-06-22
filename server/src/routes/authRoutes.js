@@ -7,7 +7,7 @@ router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 router.post('/check-username', authController.checkUsername);
 router.post('/check-email', authController.checkEmail);
-router.get('/protected-route', authController.verifyToken, (req, res) => {
+router.get('/protected-route', verifyToken, (req, res) => {
     res.json({ message: 'This is a protected route' });
 });
 module.exports = router;
