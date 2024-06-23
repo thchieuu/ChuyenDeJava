@@ -12,6 +12,7 @@ router.delete('/:id', authMiddleware.requireAuth, authMiddleware.requireRole('ad
 router.get('/', newsController.getNews);
 router.get('/search', newsController.searchNews);
 router.get('/:id', newsController.getNewsById);
+router.get('/type/:type', newsController.getNewsByType);
 
 
 module.exports = router;

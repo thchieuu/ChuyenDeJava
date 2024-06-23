@@ -7,16 +7,15 @@ function Page404() {
     <div className="Page404 bg-primary text-white d-flex flex-column justify-content-center align-items-center">
       <Container className="d-flex flex-column justify-content-center align-items-center">
         <p className="h4 text-center">
-          Avem o știre nu tocmai grozavă... pagina pe care ai încercat să o
-          accesezi nu (mai) există.
+          Trang bạn tìm kiếm không tồn tại
         </p>
         <strong className="error404">404 :(</strong>
         <p className="h4 text-center">
-          Hai{" "}
+          Đây là {" "}
           <Link to="/" className="text-secondary">
-            înapoi pe site
+           Trang chủ
           </Link>{" "}
-          să vezi o nouă știre!
+          bấm để trở lại
         </p>
       </Container>
     </div>

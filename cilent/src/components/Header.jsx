@@ -110,16 +110,16 @@ function Header() {
                 </li>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
-                      to="/category/fashion"
+                      to="/standings"
                       className="p-3 text-uppercase text-light"
                       style={{ ...linkStyle, ...linkHoverStyle }}
                   >
-                    Lịch Thi Đấu
+                    Bảng xếp hạng
                   </Link>
                 </li>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
-                      to="/category/music"
+                      to="/matches"
                       className="p-3 text-uppercase text-light"
                       style={{ ...linkStyle, ...linkHoverStyle }}
                   >

@@ -11,6 +11,10 @@ import { FavoritesContext } from './store/favorites/context';
 import { useLocalStorage } from "./utils/hooks/useLocalStorage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import LeagueStandings from "./pages/LeagueStandings";
+import MatchDetails from "./pages/MatchDetails";
+
+
 //import AdminDashboard from "./components/Admin/Dashboard";
 const router = createBrowserRouter([
   {
@@ -33,6 +37,14 @@ const router = createBrowserRouter([
   {
     path: "/simple-home",
     element: <SimpleHomePage />,
+  },
+  {
+    path: "/standings",
+    element: <LeagueStandings />,
+  },
+  {
+    path: "/matches",
+    element: <MatchDetails />,
   },
   {
     path: "/login",

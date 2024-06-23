@@ -1,0 +1,10 @@
+/* RelatedNews.module.css */
+.relatedNewsContainer {
+    padding-left: 15px;
+}
+
+.title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}

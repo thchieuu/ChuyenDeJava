@@ -12,7 +12,8 @@ import "./NewsDetails.css";
 import { FavoritesContext } from "../store/favorites/context";
 import {jwtDecode} from "jwt-decode";
 import { format } from "date-fns";
-import Pagination from "../components/Pagination"; // Import Pagination component
+import Pagination from "../components/Pagination";
+import RelatedNews from "../components/RelatedNews"; // Import Pagination component
 
 function NewsDetails() {
   const { newsId } = useParams();
@@ -56,11 +57,13 @@ function NewsDetails() {
     fetchComments();
   }, [newsId]);
 
+
   const handleAddToFavorites = () => {
     dispatch({ type: "ADD_TO_FAVORITES", payload: news });
     setIsAlertDisplayed(true);
     setTimeout(() => setIsAlertDisplayed(false), 3000);
   };
+
 
   const handleSubmitComment = async () => {
     try {
@@ -105,7 +108,7 @@ function NewsDetails() {
     return <p>Loading...</p>;
   }
 
-  const { title, author, formattedDate, mainText, imgLinks } = news;
+  const { title, author, dateTime,type, mainText, imgLinks } = news;
 
   return (
       <Layout>
@@ -114,15 +117,19 @@ function NewsDetails() {
               Tin tức đã được lưu vào mục ƯA THÍCH
             </Alert>
         )}
-        <Container className="NewsDetails my-5">
+        <Container className="NewsDetails my-5" style={{ paddingLeft: "150px", paddingRight: "150px" }}>
           <Row className="justify-content-center">
-            <Col md={10}>
+            <Col md={8}>
+              <Row className="mb-3">
+                <Col className="text-left text-muted">{type}</Col>
+                <Col className="text-right text-muted" style={{textAlign: "right"}}>{dateTime}</Col>
+              </Row>
               <h1 className="pt-3 mb-4">{title}</h1>
-              <p className="text-muted mb-3">{author} </p>
-              <p className="text-muted mb-5">{formattedDate}</p>
+              <p className="text-muted mb-3"><strong>{author}</strong></p>
               {imgLinks && imgLinks.length > 0 && (
                   <div className="mb-5">
                     <img src={imgLinks[0].url} alt={imgLinks[0].title} className="img-fluid mb-3" />
+                    <p className="text-center text-muted">{imgLinks[0].title}</p>
                   </div>
               )}
               {mainText.map((paragraph, index) => (
@@ -131,6 +138,7 @@ function NewsDetails() {
                     {index === 1 && imgLinks && imgLinks.length > 1 && (
                         <div className="mb-5">
                           <img src={imgLinks[1].url} alt={imgLinks[1].title} className="img-fluid mb-3" />
+                          <p className="text-center text-muted">{imgLinks[1].title}</p>
                         </div>
                     )}
                   </React.Fragment>
@@ -179,6 +187,9 @@ function NewsDetails() {
                   currentPage={currentPage}
                   paginate={setCurrentPage}
               />
+            </Col>
+            <Col md={4} style={{ paddingTop: 125 }}>
+              <RelatedNews type={type} />
             </Col>
           </Row>
         </Container>
