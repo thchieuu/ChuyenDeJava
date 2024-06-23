@@ -1,15 +1,16 @@
+// LatesNews.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NewsCardList from '../components/NewsCardList';
-import Header from '../components/Header';
-import SimpleHomePage from "./SimpleHomePage";
-import Container from "react-bootstrap/Container";
-import Layout from "../components/Layout";
+import Layout from '../components/Layout';
+import PaginationComponent from '../components/Pagination'; // Import component Pagination
 
-function LatesNews() {
+function LatestNews() {
     const [newsList, setNewsList] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6; // Số lượng tin tức trên mỗi trang
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -28,26 +29,34 @@ function LatesNews() {
         fetchNews();
     }, []);
 
+    const indexOfLastNews = currentPage * itemsPerPage;
+    const indexOfFirstNews = indexOfLastNews - itemsPerPage;
+    const currentNews = newsList.slice(indexOfFirstNews, indexOfLastNews);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <Layout>
-            <SimpleHomePage />
-            <section className="sports my-5" style={{paddingLeft: 150, paddingRight: 150}}>
-                <Container>
-                    <div className="d-flex justify-content-end mb-3">
-                        <div className="container mt-5">
-                           <h1>Tin Mới Nhất</h1>
-                              {error && <p className="text-danger">{error}</p>}
-                                {loading ? (
-                                <p>Loading...</p>
-                                ) : (
-                    <NewsCardList newsList={newsList} />
-                )}
-                        </div>
-                     </div>
-                </Container>
+            <section className="latest-news my-5">
+                <div className="container">
+                    <h1 className="mb-5">Tin Mới Nhất</h1>
+                    {error && <p className="text-danger">{error}</p>}
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <>
+                            <NewsCardList newsList={currentNews} />
+                            <PaginationComponent
+                                itemsPerPage={itemsPerPage}
+                                totalItems={newsList.length}
+                                currentPage={currentPage}
+                                paginate={paginate}
+                            />
+                        </>
+                    )}
+                </div>
             </section>
         </Layout>
     );
 }
 
-export default LatesNews;
+export default LatestNews;

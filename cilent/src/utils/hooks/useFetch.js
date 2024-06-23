@@ -12,3 +12,6 @@ export function useFetch(url) {
 
   return data;
 }
+export function getNewsCategoriesEndpoint(categoryId, page, limit) {
+  return `/api/news/category/${categoryId}?page=${page}&limit=${limit}`;
+}

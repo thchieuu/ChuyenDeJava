@@ -13,7 +13,7 @@ function Header() {
   const [isDisplayed, setIsDisplayed] = useState(false);
   const [username, setUsername] = useState(null);
   const navigate = useNavigate();
-
+  const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
@@ -146,16 +146,16 @@ function Header() {
                   </Link>
                 </li>
                 {isAdmin && (
-                <li className={isDisplayed ? "container" : null}>
-                  <Link
-                    to="/admin/dashboard"
-                    className="p-3 text-uppercase text-light"
-                    style={{ ...linkStyle, ...linkHoverStyle }}
-                  >
-                    Admin
-                  </Link>
-                </li>
-              )}
+                    <li className={isDisplayed ? "container" : null}>
+                      <Link
+                          to="/admin/dashboard"
+                          className="p-3 text-uppercase text-light"
+                          style={{ ...linkStyle, ...linkHoverStyle }}
+                      >
+                        Admin
+                      </Link>
+                    </li>
+                )}
               </ul>
             </div>
           </Container>
