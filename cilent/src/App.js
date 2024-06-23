@@ -53,6 +53,7 @@ function App() {
     dispatch,
   };
 
+
   return (
     <FavoritesContext.Provider value={favoritesContextValue}>
     <div className="App">

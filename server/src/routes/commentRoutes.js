@@ -12,12 +12,13 @@ router.get('/:newsId', commentController.getCommentsByNewsId);
 // Thêm comment mới
 router.post('/', authMiddleware.requireAuth, commentController.createComment);
 
-//Thích/Bỏ thích comment
+// Thích/Bỏ thích comment
 router.post('/:commentId/like', authMiddleware.requireAuth, commentController.toggleLike);
 
-//Thêm route sửa, xóa comment
+// Sửa comment
 router.put('/:commentId', authMiddleware.requireAuth, commentController.updateComment);
-router.delete('/:commentId', authMiddleware.requireAuth, commentController.deleteComment);
 
+// Xóa comment
+router.delete('/:commentId', authMiddleware.requireAuth, commentController.deleteComment);
 
 module.exports = router;

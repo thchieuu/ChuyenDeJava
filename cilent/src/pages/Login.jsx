@@ -23,7 +23,7 @@ const Login = () => {
             if (err.response && err.response.data && err.response.data.message) {
                 setError(err.response.data.message);
             } else {
-                setError('An error occurred. Please try again later.');
+                setError('Đã xảy ra lỗi. Vui lòng thử lại sau.');
             }
         }
     };
