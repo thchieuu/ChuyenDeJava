@@ -1,0 +1,27 @@
+/* RelatedNewsItem.module.css */
+.card {
+    border: none;
+}
+
+.card img {
+    height: 150px;
+    object-fit: cover; /* Đảm bảo hình ảnh giữ nguyên tỉ lệ khung hình */
+    display: block;
+
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.description {
+    font-size: 0.8rem;
+    color: gray;
+}

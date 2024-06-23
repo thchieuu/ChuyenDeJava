@@ -58,7 +58,7 @@ const Register = () => {
         }
 
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', { username, email, password });
+            const res = await axios.post('http://localhost:7000/api/auth/register', { username, email, password });
             if (res.status === 201) {
                 alert('Đăng ký thành công');
                 history('/login');
