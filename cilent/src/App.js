@@ -13,11 +13,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import LeagueStandings from "./pages/LeagueStandings";
 import MatchDetails from "./pages/MatchDetails";
-import LatesNews from "./pages/LatesNews";
+import LatestNews from "./pages/LatesNews";
 import EuroNews from "./pages/EuroNews";
 import AdminRoutes from "./admin/pages/AdminRoutes";
 import { getRoleFromToken } from "./utils/hooks/useAuth";
-import "./admin/components/css/main.css";
+
+// import "./admin/components/css/main.css" ;
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/latesNews",
-    element: <LatesNews />,
+    element: <LatestNews />,
   },
   {
     path: "/news/type/:type",
@@ -69,6 +70,23 @@ const router = createBrowserRouter([
     path: "/admin/*",
     element: <AdminRoutes isAdmin={getRoleFromToken() === 'admin'} />,
   },
+  {
+    path: "/standings",
+    element: <LeagueStandings />,
+  },
+  {
+    path: "/matches",
+    element: <MatchDetails />,
+  },
+  {
+    path: "/latesNews",
+    element: <LatestNews />,
+  },
+  {
+    path: "/news/type/:type",
+    element: <EuroNews />,
+  },
+
 ]);
 
 function App() {
