@@ -1,4 +1,6 @@
 const News = require('../models/news');
+const multer = require('multer');
+const path = require('path');
 
 exports.getNews = async (req, res) => {
   try {
@@ -61,19 +63,55 @@ exports.deleteNewsById = async (req, res) => {
   }
 };
 
-exports.createNews = async (req, res) => {  
-  try {
-    const newNewsData = req.body;
-
-    const newNews = new News(newNewsData);
-    await newNews.save();
-
-    res.status(201).json(newNews);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Lỗi server' });
+// Cấu hình multer để xử lý file upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/') // Thư mục lưu trữ file
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)) // Đặt tên file
   }
-};
+});
+
+const upload = multer({ storage: storage });
+
+exports.createNews = [
+  upload.array('images', 5),
+  async (req, res) => {
+    try {
+      const newNewsData = JSON.parse(JSON.stringify(req.body));
+      
+      // Xử lý imgLinks
+      const imgLinks = JSON.parse(newNewsData.imgLinks);
+      const updatedImgLinks = imgLinks.map((link, index) => {
+        if (link.type === 'image' && req.files[index]) {
+          return {
+            ...link,
+            url: `/uploads/${req.files[index].filename}`
+          };
+        }
+        return link;
+      });
+
+      // Cập nhật newNewsData với imgLinks đã xử lý
+      newNewsData.imgLinks = updatedImgLinks;
+
+      // Chuyển đổi mainText từ string sang array nếu cần
+      if (typeof newNewsData.mainText === 'string') {
+        newNewsData.mainText = JSON.parse(newNewsData.mainText);
+      }
+
+      const newNews = new News(newNewsData);
+      await newNews.save();
+
+      res.status(201).json(newNews);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Lỗi server' });
+    }
+  }
+];
+
 
 exports.searchNews = async (req, res) => {
   try {
