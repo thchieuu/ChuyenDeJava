@@ -134,3 +134,18 @@ exports.searchNews = async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 };
+exports.getNewsByType = async (req, res) => {
+  try {
+    const newsType = req.params.type;
+    const news = await News.find({ type: { $regex: newsType, $options: 'i' } });
+
+    if (news.length === 0) {
+      return res.status(404).json({ message: 'Không tìm thấy bài viết với loại này' });
+    }
+
+    res.json(news);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+};
