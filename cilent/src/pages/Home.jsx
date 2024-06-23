@@ -12,7 +12,8 @@ function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [notFound, setNotFound] = useState(false);
-    const itemsPerPage = 9;
+    const itemsPerPage = 6;
+    let timerId = null;
 
     useEffect(() => {
         fetch('http://localhost:7000/api/news')
@@ -25,9 +26,20 @@ function Home() {
             });
     }, []);
 
-    useEffect(() => {
-        if (searchTerm) {
-            fetch(`http://localhost:7000/api/news/search?q=${searchTerm}`)
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+        if (timerId) {
+            clearTimeout(timerId); // Hủy timeout hiện tại nếu có
+        }
+        timerId = setTimeout(() => {
+            fetchSearchResults(value);
+        }, 1200); // Sau 2000ms gọi API tìm kiếm
+    };
+
+    const fetchSearchResults = (value) => {
+        if (value) {
+            fetch(`http://localhost:7000/api/news/search?q=${value}`)
                 .then(response => {
                     if (response.status === 404) {
                         setSearchResults([]);
@@ -49,7 +61,7 @@ function Home() {
             setSearchResults([]);
             setNotFound(false);
         }
-    }, [searchTerm]);
+    };
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -58,21 +70,22 @@ function Home() {
     return (
         <Layout>
             <SimpleHomePage />
-            <section className="sports my-5" style={{paddingLeft: 150, paddingRight: 150}}>
+            <section className="sports my-5">
                 <Container>
                     <div className="d-flex justify-content-end mb-3">
                         <input
                             type="text"
                             placeholder="Tìm kiếm..."
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="form-control "
+                            onChange={handleSearchChange}
+                            className="form-control"
                             style={{ maxWidth: "350px" }}
                         />
                     </div>
                     <h1 className="mb-5 pt-3">Thể Thao</h1>
                     {notFound && <p>Không tìm thấy kết quả</p>}
                     <NewsCardList newsList={currentItems} />
+
                     <Pagination
                         itemsPerPage={itemsPerPage}
                         totalItems={searchTerm ? searchResults.length : newsData.length}
