@@ -13,6 +13,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import LeagueStandings from "./pages/LeagueStandings";
 import MatchDetails from "./pages/MatchDetails";
+import LatesNews from "./pages/LatesNews";
+import EuroNews from "./pages/EuroNews";
 
 
 //import AdminDashboard from "./components/Admin/Dashboard";
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
   {
     path: "/matches",
     element: <MatchDetails />,
+  },
+  {
+    path: "/latesNews",
+    element: <LatesNews />,
+  },
+  {
+    path: "/news/type/:type",
+    element: <EuroNews />,
   },
   {
     path: "/login",

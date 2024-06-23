@@ -12,7 +12,7 @@ function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [notFound, setNotFound] = useState(false);
-    const itemsPerPage = 6;
+    const itemsPerPage = 9;
 
     useEffect(() => {
         fetch('http://localhost:7000/api/news')
@@ -58,11 +58,9 @@ function Home() {
     return (
         <Layout>
             <SimpleHomePage />
-            <section className="sports my-5">
+            <section className="sports my-5" style={{paddingLeft: 150, paddingRight: 150}}>
                 <Container>
-
                     <div className="d-flex justify-content-end mb-3">
-
                         <input
                             type="text"
                             placeholder="Tìm kiếm..."
@@ -70,7 +68,6 @@ function Home() {
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="form-control "
                             style={{ maxWidth: "350px" }}
-
                         />
                     </div>
                     <h1 className="mb-5 pt-3">Thể Thao</h1>

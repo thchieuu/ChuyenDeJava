@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Header.css";
 import Container from "react-bootstrap/Container";
+import DropdownMenu from './DropdownMenu';
+import './Header.css';
+
+const types = ['Euro 2024', 'Bóng đá', 'Marathon','Tennis','Đua xe', 'Võ thuật','Các môn khác', 'Trong nước',
+  'Thể thao', 'Chuyện bên lề'
+];
 
 function Header() {
   const [isDisplayed, setIsDisplayed] = useState(false);
@@ -92,21 +97,21 @@ function Header() {
               <ul className={dropdownMenuClasses}>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
-                      to="/category/travel"
+                      to="/latesNews"
                       className="p-3 text-uppercase text-light"
                       style={{ ...linkStyle, ...linkHoverStyle }}
                   >
                     Tin Mới Nhất
                   </Link>
                 </li>
-                <li className={isDisplayed ? "container" : null}>
-                  <Link
-                      to="/category/food"
-                      className="p-3 text-uppercase text-light"
-                      style={{ ...linkStyle, ...linkHoverStyle }}
-                  >
-                    Sự Kiện
-                  </Link>
+                <li className={isDisplayed ? "container nav-item" : "nav-item"}>
+                <span
+                    className="p-3 text-uppercase text-light"
+                    style={{ ...linkStyle, ...linkHoverStyle }}
+                >
+                  Thể Thao
+                </span>
+                  <DropdownMenu items={types} onItemClick={(type) => console.log(type)} />
                 </li>
                 <li className={isDisplayed ? "container" : null}>
                   <Link
