@@ -1,3 +1,4 @@
+// src/components/NewsCardList.jsx
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -15,7 +16,7 @@ function NewsCardList({ newsList, showCloseButton = false }) {
                             imgSrc={news.imgLinks && news.imgLinks.length > 0 ? news.imgLinks[0].url : null}
                             title={news.title}
                             description={news.description}
-                            hasCloseButton={showCloseButton} // Pass the prop to NewsCard
+                            hasCloseButton={showCloseButton}
                         />
                     </Col>
                 ))}

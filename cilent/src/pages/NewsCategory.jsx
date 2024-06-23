@@ -2,12 +2,12 @@ import React from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Container from "react-bootstrap/Container";
-import { useFetch } from "../utils/hooks/useFetch";
-import NewsCardList from "../components/NewsCardList";
+// import { useFetch } from "../utils/hooks/useFetch";
+// import NewsCardList from "../components/NewsCardList";
 import CustomPagination from "../components/CustomPagination";
 
 function NewsCategory() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1
   const { categoryId } = useParams();
   // const newsCategoryEndpoint = getNewsCategoriesEndpoint(categoryId, currentPage);

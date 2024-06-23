@@ -74,67 +74,67 @@ const Register = () => {
 
     return (
         <Layout>
-        <div style={styles.body}>
-            <div style={styles.main}>
-                <h2>Registration Form</h2>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <form onSubmit={onSubmit}>
-                    <label style={styles.label} htmlFor="username">User name:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Enter your Username"
-                        required
-                        style={styles.input}
-                    />
-                    {usernameExists && <p style={{ color: 'red' }}>Username already exists</p>}
+            <div style={styles.body}>
+                <div style={styles.main}>
+                    <h2>Registration Form</h2>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <form onSubmit={onSubmit}>
+                        <label style={styles.label} htmlFor="username">User name:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Enter your Username"
+                            required
+                            style={styles.input}
+                        />
+                        {usernameExists && <p style={{ color: 'red' }}>Username already exists</p>}
 
-                    <label style={styles.label} htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your Email"
-                        required
-                        style={styles.input}
-                    />
-                    {emailExists && <p style={{ color: 'red' }}>Email already exists</p>}
+                        <label style={styles.label} htmlFor="email">Email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your Email"
+                            required
+                            style={styles.input}
+                        />
+                        {emailExists && <p style={{ color: 'red' }}>Email already exists</p>}
 
-                    <label style={styles.label} htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter your Password"
-                        pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$"
-                        title="Password must contain at least one number, one alphabet, one symbol, and be at least 8 characters long"
-                        required
-                        style={styles.input}
-                    />
+                        <label style={styles.label} htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your Password"
+                            pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$"
+                            title="Password must contain at least one number, one alphabet, one symbol, and be at least 8 characters long"
+                            required
+                            style={styles.input}
+                        />
 
-                    <label style={styles.label} htmlFor="confirmPassword">Re-type Password:</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Re-type your Password"
-                        required
-                        style={styles.input}
-                    />
+                        <label style={styles.label} htmlFor="confirmPassword">Re-type Password:</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder="Re-type your Password"
+                            required
+                            style={styles.input}
+                        />
 
-                    <button type="submit" style={styles.button}>Submit</button>
-                </form>
+                        <button type="submit" style={styles.button}>Submit</button>
+                    </form>
+                </div>
             </div>
-        </div>
         </Layout>
 
     );
