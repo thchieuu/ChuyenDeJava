@@ -11,7 +11,7 @@ import { FavoritesContext } from './store/favorites/context';
 import { useLocalStorage } from "./utils/hooks/useLocalStorage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
+//import AdminDashboard from "./components/Admin/Dashboard";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +42,9 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  // {
+  //   path:"/admin/dashboard", element:<AdminDashboard />,
+  // },
 
 ]);
 

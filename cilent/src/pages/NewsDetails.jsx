@@ -10,8 +10,9 @@ import { Form } from "react-bootstrap";
 import styles from "./NewsDetails.module.css";
 import "./NewsDetails.css";
 import { FavoritesContext } from "../store/favorites/context";
+import {jwtDecode} from "jwt-decode";
+import { format } from "date-fns";
 import Pagination from "../components/Pagination"; // Import Pagination component
-import {jwtDecode} from 'jwt-decode';
 
 function NewsDetails() {
   const { newsId } = useParams();
@@ -22,7 +23,7 @@ function NewsDetails() {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 5;
+  const commentsPerPage = 6;
 
   useEffect(() => {
     const fetchNewsData = async () => {
@@ -64,8 +65,10 @@ function NewsDetails() {
   const handleSubmitComment = async () => {
     try {
       const token = localStorage.getItem("token");
+
+      // Giải mã token để lấy thông tin người dùng
       const decodedToken = jwtDecode(token);
-      const userId = decodedToken.userId;
+      const userId = decodedToken.userId; // Điều chỉnh theo cấu trúc của token của bạn
 
       console.log('Gửi bình luận với nội dung:', comment, 'cho ID tin tức:', newsId, 'bởi user:', userId);
 
@@ -73,9 +76,9 @@ function NewsDetails() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // Đảm bảo bạn đã lưu token sau khi đăng nhập
         },
-        body: JSON.stringify({ content: comment, newsId, userId }),
+        body: JSON.stringify({ content: comment, newsId, userId }), // Thêm userId vào body
       });
 
       if (!response.ok) {
@@ -83,6 +86,7 @@ function NewsDetails() {
       }
 
       const newComment = await response.json();
+      // Cập nhật danh sách bình luận và sắp xếp lại
       setComments((prevComments) => {
         const updatedComments = [newComment, ...prevComments];
         return updatedComments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -93,15 +97,15 @@ function NewsDetails() {
     }
   };
 
+  const indexOfLastComment = currentPage * commentsPerPage;
+  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+  const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
+
   if (!news) {
     return <p>Loading...</p>;
   }
 
   const { title, author, formattedDate, mainText, imgLinks } = news;
-
-  const indexOfLastComment = currentPage * commentsPerPage;
-  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-  const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
 
   return (
       <Layout>
@@ -157,7 +161,7 @@ function NewsDetails() {
                           <div className="comment-header d-flex align-items-center">
                             <div className="comment-author ms-2">
                               <strong>{comment.author.username}</strong>
-                              <small className="text-muted ms-2">{new Date(comment.createdAt).toLocaleString()}</small>
+                              <small className="text-muted ms-2">{format(new Date(comment.createdAt), "dd/MM/yyyy, hh:mm:ss a")}</small>
                             </div>
                           </div>
                           <div className="comment-body mt-2">
@@ -168,13 +172,13 @@ function NewsDetails() {
                 ) : (
                     <p>Chưa có bình luận nào.</p>
                 )}
-                <Pagination
-                    itemsPerPage={commentsPerPage}
-                    totalItems={comments.length}
-                    currentPage={currentPage}
-                    paginate={setCurrentPage}
-                />
               </div>
+              <Pagination
+                  itemsPerPage={commentsPerPage}
+                  totalItems={comments.length}
+                  currentPage={currentPage}
+                  paginate={setCurrentPage}
+              />
             </Col>
           </Row>
         </Container>

@@ -9,6 +9,9 @@ import Pagination from "../components/Pagination";
 function Home() {
     const [newsData, setNewsData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [notFound, setNotFound] = useState(false);
     const itemsPerPage = 6;
 
     useEffect(() => {
@@ -22,20 +25,60 @@ function Home() {
             });
     }, []);
 
+    useEffect(() => {
+        if (searchTerm) {
+            fetch(`http://localhost:7000/api/news/search?q=${searchTerm}`)
+                .then(response => {
+                    if (response.status === 404) {
+                        setSearchResults([]);
+                        setNotFound(true);
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        setSearchResults(data);
+                        setNotFound(false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error searching news data:', error);
+                });
+        } else {
+            setSearchResults([]);
+            setNotFound(false);
+        }
+    }, [searchTerm]);
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = newsData.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = searchTerm ? searchResults.slice(indexOfFirstItem, indexOfLastItem) : newsData.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
         <Layout>
             <SimpleHomePage />
             <section className="sports my-5">
                 <Container>
+
+                    <div className="d-flex justify-content-end mb-3">
+
+                        <input
+                            type="text"
+                            placeholder="Tìm kiếm..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="form-control "
+                            style={{ maxWidth: "350px" }}
+
+                        />
+                    </div>
                     <h1 className="mb-5 pt-3">Thể Thao</h1>
+                    {notFound && <p>Không tìm thấy kết quả</p>}
                     <NewsCardList newsList={currentItems} />
                     <Pagination
                         itemsPerPage={itemsPerPage}
-                        totalItems={newsData.length}
+                        totalItems={searchTerm ? searchResults.length : newsData.length}
                         currentPage={currentPage}
                         paginate={setCurrentPage}
                     />
