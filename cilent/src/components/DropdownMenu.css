@@ -1,0 +1,23 @@
+.dropdown-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    display: none;
+    z-index: 1000;
+    width: 200px;
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
