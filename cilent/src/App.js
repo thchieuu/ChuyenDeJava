@@ -15,9 +15,10 @@ import LeagueStandings from "./pages/LeagueStandings";
 import MatchDetails from "./pages/MatchDetails";
 import LatesNews from "./pages/LatesNews";
 import EuroNews from "./pages/EuroNews";
+import AdminRoutes from "./admin/pages/AdminRoutes";
+import { getRoleFromToken } from "./utils/hooks/useAuth";
+import "./admin/components/css/main.css";
 
-
-//import AdminDashboard from "./components/Admin/Dashboard";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,10 +65,10 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
-  // {
-  //   path:"/admin/dashboard", element:<AdminDashboard />,
-  // },
-
+  {
+    path: "/admin/*",
+    element: <AdminRoutes isAdmin={getRoleFromToken() === 'admin'} />,
+  },
 ]);
 
 function App() {

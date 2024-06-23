@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import DropdownMenu from './DropdownMenu';
 import './Header.css';
+import { getRoleFromToken } from "../utils/hooks/useAuth";
 
 const types = ['Euro 2024', 'Bóng đá', 'Marathon','Tennis','Đua xe', 'Võ thuật','Các môn khác', 'Trong nước',
   'Thể thao', 'Chuyện bên lề'
@@ -17,6 +18,10 @@ function Header() {
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
+    }
+    const role = getRoleFromToken();
+    if (role === 'admin') {
+      setIsAdmin(true);
     }
   }, []);
 
@@ -140,6 +145,17 @@ function Header() {
                     Ưa Thích
                   </Link>
                 </li>
+                {isAdmin && (
+                <li className={isDisplayed ? "container" : null}>
+                  <Link
+                    to="/admin/dashboard"
+                    className="p-3 text-uppercase text-light"
+                    style={{ ...linkStyle, ...linkHoverStyle }}
+                  >
+                    Admin
+                  </Link>
+                </li>
+              )}
               </ul>
             </div>
           </Container>

@@ -3,6 +3,7 @@ const Comment = require('../models/comment');
 exports.getComments = async (req, res) => {
     try {
         const comments = await Comment.find()
+            .populate("news", "title")
             .populate('author', 'username')
             .sort({ createdAt: -1 })
             .lean();
